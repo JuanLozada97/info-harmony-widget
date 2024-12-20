@@ -1,6 +1,8 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 import VitalsDisplay from "./vitals/VitalsDisplay";
+import MedicationsDisplay from "./medications/MedicationsDisplay";
+import LabsDisplay from "./labs/LabsDisplay";
 
 interface MedicalModalProps {
   patientId: string;
@@ -176,6 +178,10 @@ const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) =>
             renderAntecedentes()
           ) : activeSection === "signos" ? (
             <VitalsDisplay />
+          ) : activeSection === "medicamentos" ? (
+            <MedicationsDisplay />
+          ) : activeSection === "laboratorios" ? (
+            <LabsDisplay />
           ) : (
             <div className="text-medical-muted">
               Contenido de {sections.find(s => s.id === activeSection)?.name}
