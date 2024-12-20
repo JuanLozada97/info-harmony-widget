@@ -3,6 +3,7 @@ import { useState } from "react";
 import VitalsDisplay from "./vitals/VitalsDisplay";
 import MedicationsDisplay from "./medications/MedicationsDisplay";
 import LabsDisplay from "./labs/LabsDisplay";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 
 interface MedicalModalProps {
   patientId: string;
@@ -132,81 +133,95 @@ const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) =>
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center animate-fade-in">
-      <div className="bg-medical-background w-full max-w-4xl rounded-lg shadow-xl overflow-hidden">
-        {/* Header */}
-        <div className="border-b border-medical-border p-4 flex justify-between items-center">
-          <div>
-            <h2 className="text-medical-text text-lg font-semibold">
-              Identificación: {patientId}
-            </h2>
-            <p className="text-medical-muted text-sm">{patientName}</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-medical-muted hover:text-medical-text transition-colors"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Navigation */}
-        <div className="border-b border-medical-border">
-          <nav className="flex overflow-x-auto">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors ${
-                  activeSection === section.id
-                    ? "text-medical-primary border-b-2 border-medical-primary"
-                    : "text-medical-muted hover:text-medical-text hover:bg-medical-hover"
-                }`}
-              >
-                {section.name}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
-          {activeSection === "historia" ? (
-            renderHistoriaClinica()
-          ) : activeSection === "diagnosticos" ? (
-            renderDiagnosticos()
-          ) : activeSection === "antecedentes" ? (
-            renderAntecedentes()
-          ) : activeSection === "signos" ? (
-            <VitalsDisplay />
-          ) : activeSection === "medicamentos" ? (
-            <MedicationsDisplay />
-          ) : activeSection === "laboratorios" ? (
-            <LabsDisplay />
-          ) : (
-            <div className="text-medical-muted">
-              Contenido de {sections.find(s => s.id === activeSection)?.name}
+      <ResizablePanelGroup 
+        direction="horizontal" 
+        className="bg-medical-background w-full max-w-4xl rounded-lg shadow-xl overflow-hidden"
+      >
+        <ResizablePanel defaultSize={30} minSize={20} maxSize={40}>
+          {/* Header */}
+          <div className="border-b border-medical-border p-4">
+            <div>
+              <h2 className="text-medical-text text-lg font-semibold">
+                Identificación: {patientId}
+              </h2>
+              <p className="text-medical-muted text-sm">{patientName}</p>
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Footer */}
-        <div className="border-t border-medical-border p-4 flex justify-between items-center">
-          <div className="text-sm text-medical-muted">
-            Estudio tomado por: LIDA MINGRED REY PEÑA
+          {/* Navigation */}
+          <div className="border-b border-medical-border">
+            <nav className="flex flex-col">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => setActiveSection(section.id)}
+                  className={`px-4 py-3 text-sm font-medium text-left transition-colors ${
+                    activeSection === section.id
+                      ? "text-medical-primary bg-medical-hover"
+                      : "text-medical-muted hover:text-medical-text hover:bg-medical-hover"
+                  }`}
+                >
+                  {section.name}
+                </button>
+              ))}
+            </nav>
           </div>
-          <div className="flex gap-3">
-            <button className="px-4 py-2 bg-medical-primary text-white rounded hover:bg-medical-secondary transition-colors">
-              Guardar
-            </button>
-            <button 
-              onClick={onClose}
-              className="px-4 py-2 bg-medical-hover text-medical-muted rounded hover:text-medical-text transition-colors"
-            >
-              Cancelar
-            </button>
+        </ResizablePanel>
+
+        <ResizableHandle withHandle />
+
+        <ResizablePanel defaultSize={70} minSize={60} maxSize={80}>
+          {/* Content */}
+          <div className="h-full flex flex-col">
+            <div className="flex justify-end p-4 border-b border-medical-border">
+              <button
+                onClick={onClose}
+                className="text-medical-muted hover:text-medical-text transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-6 flex-1 overflow-y-auto">
+              {activeSection === "historia" ? (
+                renderHistoriaClinica()
+              ) : activeSection === "diagnosticos" ? (
+                renderDiagnosticos()
+              ) : activeSection === "antecedentes" ? (
+                renderAntecedentes()
+              ) : activeSection === "signos" ? (
+                <VitalsDisplay />
+              ) : activeSection === "medicamentos" ? (
+                <MedicationsDisplay />
+              ) : activeSection === "laboratorios" ? (
+                <LabsDisplay />
+              ) : (
+                <div className="text-medical-muted">
+                  Contenido de {sections.find(s => s.id === activeSection)?.name}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-medical-border p-4 flex justify-between items-center">
+              <div className="text-sm text-medical-muted">
+                Estudio tomado por: LIDA MINGRED REY PEÑA
+              </div>
+              <div className="flex gap-3">
+                <button className="px-4 py-2 bg-medical-primary text-white rounded hover:bg-medical-secondary transition-colors">
+                  Guardar
+                </button>
+                <button 
+                  onClick={onClose}
+                  className="px-4 py-2 bg-medical-hover text-medical-muted rounded hover:text-medical-text transition-colors"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 };
