@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 import VitalsDisplay from "./vitals/VitalsDisplay";
 import MedicationsDisplay from "./medications/MedicationsDisplay";
 import LabsDisplay from "./labs/LabsDisplay";
