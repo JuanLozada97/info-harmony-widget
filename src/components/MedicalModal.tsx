@@ -19,6 +19,47 @@ const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) =>
     { id: "laboratorios", name: "Laboratorios" },
   ];
 
+  const renderHistoriaClinica = () => {
+    return (
+      <div className="space-y-6">
+        <div className="border border-medical-border rounded-lg p-4 space-y-4">
+          {/* Specialty and Doctor Section */}
+          <div className="border-b border-medical-border pb-3">
+            <h3 className="text-medical-primary font-semibold text-lg">
+              ORTOPEDIA Y TRAUMATOLOGIA
+            </h3>
+            <p className="text-medical-muted">Dr. CRISTIAN CAMILO FAJARDO CANTILLO</p>
+          </div>
+
+          {/* Date Section */}
+          <div className="flex items-center space-x-2 py-2">
+            <span className="text-medical-primary font-medium">Fecha Historia:</span>
+            <span className="text-medical-text">Dec 12 2024 11:42PM</span>
+          </div>
+
+          {/* Clinical Notes Section */}
+          <div className="space-y-3">
+            <h4 className="text-medical-primary font-medium">REVALORACION ORTOPEDIA Y TRAUMATOLOGIA</h4>
+            <div className="bg-medical-hover rounded-md p-4">
+              <p className="text-medical-text leading-relaxed">
+                SE REVALORA PACIENTE CON TAC DE CODO EL CUAL EVIDENCIA FRACTURA DE CUPULA RADIAL CON ESCALON ARTICULAR MENOR DE 3 MM AL EXAMEN FISICO SIN LIMITACION A LA PRONOSUPINACION.
+              </p>
+              <p className="text-medical-text leading-relaxed mt-2">
+                SE CONSIDERA TRAZO DE FRACTURA SE BENEFICIA DE MANEJO ORTOPEDICO POR LO QUE SE DA EGRESO CON SIGNOS DE LARMA Y RECOMENDACIONES.
+              </p>
+              <p className="text-medical-text leading-relaxed mt-2">
+                SE DA MANEJO ANALGESICO, INCAPACIDAD. CONTROL EN 3 SEMANAS POR CONSULTA EXTERNA CON RX.
+              </p>
+              <p className="text-medical-text leading-relaxed mt-2">
+                SE EXPLICA CLARAMENTE A PACIENTE QUIENE NTIENDE YA CEPTA.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center animate-fade-in">
       <div className="bg-medical-background w-full max-w-4xl rounded-lg shadow-xl overflow-hidden">
@@ -58,15 +99,14 @@ const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) =>
         </div>
 
         {/* Content */}
-        <div className="p-6">
-          <div className="space-y-6">
-            {/* This is where the actual content for each section would go */}
-            <div className="text-medical-text">
-              <p className="text-medical-muted">
-                Contenido de {sections.find(s => s.id === activeSection)?.name}
-              </p>
+        <div className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {activeSection === "historia" ? (
+            renderHistoriaClinica()
+          ) : (
+            <div className="text-medical-muted">
+              Contenido de {sections.find(s => s.id === activeSection)?.name}
             </div>
-          </div>
+          )}
         </div>
 
         {/* Footer */}
