@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+.resize-handle {
+  position: relative;
+}
+
+.resize-handle::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, #9b87f5 50%);
+}
