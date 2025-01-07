@@ -6,16 +6,14 @@ import ModalHeader from "./modal/ModalHeader";
 import ModalNavigation from "./modal/ModalNavigation";
 import ModalContent from "./modal/ModalContent";
 import ModalFooter from "./modal/ModalFooter";
-import { Hc } from "@/types/medical";
 
 interface MedicalModalProps {
   patientId: string;
   patientName: string;
   onClose: () => void;
-  data?: Hc;
 }
 
-const MedicalModal = ({ patientId, patientName, onClose, data }: MedicalModalProps) => {
+const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) => {
   const [activeSection, setActiveSection] = useState("historia");
   
   const sections = [
@@ -50,7 +48,6 @@ const MedicalModal = ({ patientId, patientName, onClose, data }: MedicalModalPro
           <ModalContent
             activeSection={activeSection}
             sections={sections}
-            data={data}
           />
           <ModalFooter onClose={onClose} />
         </ResizableBox>

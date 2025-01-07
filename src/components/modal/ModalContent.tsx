@@ -4,27 +4,25 @@ import LabsDisplay from "../labs/LabsDisplay";
 import HistoriaClinica from "../medical/HistoriaClinica";
 import Diagnosticos from "../medical/Diagnosticos";
 import Antecedentes from "../medical/Antecedentes";
-import { Hc } from "@/types/medical";
 
 interface ModalContentProps {
   activeSection: string;
   sections: Array<{ id: string; name: string; }>;
-  data?: Hc;
 }
 
-const ModalContent = ({ activeSection, sections, data }: ModalContentProps) => {
+const ModalContent = ({ activeSection, sections }: ModalContentProps) => {
   const renderContent = () => {
     switch (activeSection) {
       case "historia":
-        return <HistoriaClinica data={data?.hc[0]} />;
+        return <HistoriaClinica />;
       case "diagnosticos":
-        return <Diagnosticos diagnosticos={data?.dx} />;
+        return <Diagnosticos />;
       case "antecedentes":
         return <Antecedentes />;
       case "signos":
-        return <VitalsDisplay vitals={data?.sign[0]} />;
+        return <VitalsDisplay />;
       case "medicamentos":
-        return <MedicationsDisplay medications={data?.drugs} />;
+        return <MedicationsDisplay />;
       case "laboratorios":
         return <LabsDisplay />;
       default:
