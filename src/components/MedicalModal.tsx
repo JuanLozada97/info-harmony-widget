@@ -6,14 +6,16 @@ import ModalHeader from "./modal/ModalHeader";
 import ModalNavigation from "./modal/ModalNavigation";
 import ModalContent from "./modal/ModalContent";
 import ModalFooter from "./modal/ModalFooter";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface MedicalModalProps {
   patientId: string;
   patientName: string;
   onClose: () => void;
+  isLoading?: boolean;
 }
 
-const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) => {
+const MedicalModal = ({ patientId, patientName, onClose, isLoading = false }: MedicalModalProps) => {
   const [activeSection, setActiveSection] = useState("historia");
   
   const sections = [
@@ -40,16 +42,27 @@ const MedicalModal = ({ patientId, patientName, onClose }: MedicalModalProps) =>
             patientName={patientName}
             onClose={onClose}
           />
-          <ModalNavigation
-            sections={sections}
-            activeSection={activeSection}
-            onSectionChange={setActiveSection}
-          />
-          <ModalContent
-            activeSection={activeSection}
-            sections={sections}
-          />
-          <ModalFooter onClose={onClose} />
+          {isLoading ? (
+            <div className="p-6 space-y-4">
+              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-32 w-full" />
+              <Skeleton className="h-32 w-full" />
+              <Skeleton className="h-8 w-3/4" />
+            </div>
+          ) : (
+            <>
+              <ModalNavigation
+                sections={sections}
+                activeSection={activeSection}
+                onSectionChange={setActiveSection}
+              />
+              <ModalContent
+                activeSection={activeSection}
+                sections={sections}
+              />
+              <ModalFooter onClose={onClose} />
+            </>
+          )}
         </ResizableBox>
       </Draggable>
     </div>
