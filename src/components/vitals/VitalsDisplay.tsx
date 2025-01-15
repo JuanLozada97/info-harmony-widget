@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 interface VitalSign {
   timestamp: string;
@@ -52,46 +42,11 @@ const allVitalSignsData: VitalSign[] = [
 ];
 
 const VitalsDisplay = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const [vitalSignsData, setVitalSignsData] = useState<VitalSign[]>(allVitalSignsData);
+  const [vitalSignsData] = useState<VitalSign[]>(allVitalSignsData);
   const currentVitals = vitalSignsData[vitalSignsData.length - 1];
-
-  // In a real application, this would filter data based on the selected date
-  const handleDateChange = (selectedDate: Date | undefined) => {
-    setDate(selectedDate);
-    // For demo purposes, we're just using the same data
-    // In a real app, you would fetch/filter data for the selected date
-    setVitalSignsData(allVitalSignsData);
-  };
 
   return (
     <div className="space-y-6">
-      {/* Date Selector */}
-      <div className="flex items-center space-x-4">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-[240px] justify-start text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "PPP") : <span>Pick a date</span>}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={handleDateChange}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
-
       {/* Current Vitals Display */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="border border-medical-border rounded-lg p-4">
