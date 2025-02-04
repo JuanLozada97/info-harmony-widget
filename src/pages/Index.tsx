@@ -1,6 +1,6 @@
+
 import { useState } from "react";
 import MedicalModal from "../components/MedicalModal";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +16,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <button
         onClick={handleOpenModal}
         className="px-4 py-2 bg-medical-primary text-white rounded hover:bg-medical-secondary transition-colors"
