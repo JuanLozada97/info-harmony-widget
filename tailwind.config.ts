@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,8 +21,8 @@ export default {
     extend: {
       colors: {
         medical: {
-          primary: "#9b87f5",
-          secondary: "#7E69AB",
+          primary: "#1EA5E9",
+          secondary: "#33C3F0",
           background: "#1A1F2C",
           text: "#FFFFFF",
           muted: "#C8C8C9",
